@@ -35,6 +35,7 @@
     <Compile Include="TextDecorationLine.fs" />
     <Compile Include="TransitionProperty.fs" />
     <Compile Include="GridTypes.fs" />
+    <Compile Include="Gestures.fs" />
     <Compile Include="Styles.fs" />
     <Compile Include="Svg.fs" />
     <Compile Include="Html.fs" />

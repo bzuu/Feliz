@@ -2184,6 +2184,24 @@ type style =
 
     /// Sets the color of an SVG shape.
     static member inline fill (color: string) = Interop.mkStyle "fill" color
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture) =
+        Interop.mkStyle "touchAction" horizontalGesture
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(verticalGesture: IVerticalGesture) =
+        Interop.mkStyle "touchAction" verticalGesture
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, verticalGesture: IVerticalGesture) =
+        Interop.mkStyle "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> verticalGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.mkStyle "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> multiFingerGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(verticalGesture: IVerticalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.mkStyle "touchAction" ((unbox<string> verticalGesture) + " " + (unbox<string> multiFingerGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, verticalGesture: IVerticalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.mkStyle "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> verticalGesture) + " " + (unbox<string> multiFingerGesture))
 
 [<Erase>]
 module style =
@@ -3657,8 +3675,63 @@ module style =
         static member inline borderBox = Interop.mkStyle "boxSizing" "border-box"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "boxSizing" "initial"
-        /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "boxSizing" "inherit"
+    
+    /// Sets under what circumstances (if any) a particular graphics element can become the target of pointer events.
+    [<Erase>]
+    type pointerEvents =
+        /// Default value. The element behaves as it would if the pointer-events property were not specified.
+        static member inline auto = Interop.mkStyle "pointerEvents" "auto"
+        /// The element is never the target of pointer events; however, pointer events may target its descendant elements if those descendants have pointer-events set to some other value.
+        static member inline none = Interop.mkStyle "pointerEvents" "none"
+
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and e.g. when a mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when a mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline visiblePainted = Interop.mkStyle "pointerEvents" "visiblePainted"
+        
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and when e.g. a mouse cursor is over the interior (i.e., fill) of the element. The value of the fill property does not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline visibleFill = Interop.mkStyle "pointerEvents" "visibleFill"
+        
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and e.g. when the mouse cursor is over the perimeter (i.e., stroke) of the element. The value of the stroke property does not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline visibleStroke = Interop.mkStyle "pointerEvents" "visibleStroke"
+        
+        /// The element can be the target of a pointer event when the visibility property is set to visible and e.g. the mouse cursor is over either the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill and stroke do not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline visible = Interop.mkStyle "pointerEvents" "visible"
+        
+        /// The element can only be the target of a pointer event when e.g. the mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when the mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none. The value of the visibility property does not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline painted = Interop.mkStyle "pointerEvents" "painted"
+        
+        /// The element can only be the target of a pointer event when the pointer is over the interior (i.e., fill) of the element. The values of the fill and visibility properties do not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fill = Interop.mkStyle "pointerEvents" "fill"
+        
+        /// The element can only be the target of a pointer event when the pointer is over the perimeter (i.e., stroke) of the element. The values of the stroke and visibility properties do not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline stroke = Interop.mkStyle "pointerEvents" "stroke"
+
+        /// The element can only be the target of a pointer event when the pointer is over the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill, stroke, and visibility properties do not affect event processing.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline all = Interop.mkStyle "pointerEvents" "all"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "pointerEvents" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "pointerEvents" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent,
+        /// and to its initial value if not.
+        static member inline unset = Interop.mkStyle "pointerEvents" "unset"
+
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    [<Erase>]
+    type touchAction =
+        /// Default value. Enable browser handling of all panning and zooming gestures.
+        static member inline auto = Interop.mkStyle "touchAction" "auto"
+        /// Disable browser handling of all panning and zooming gestures.
+        static member inline none = Interop.mkStyle "touchAction" "none"
+        /// Enable panning and pinch zoom gestures, but disable additional non-standard gestures such as double-tap to zoom. Disabling double-tap to zoom removes the need for browsers to delay the generation of click events when the user taps the screen.
+        static member inline manipulation = Interop.mkStyle "touchAction" "manipulation"
 
     /// Sets whether an element is resizable, and if so, in which directions.
     [<Erase>]

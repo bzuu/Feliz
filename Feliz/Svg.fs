@@ -736,7 +736,24 @@ type svg =
     /// The user agent will ensure that the text does not extend farther than that distance, using the method or methods
     /// specified by the lengthAdjust attribute.
     static member inline textLength (value: int) = Interop.svgAttribute "textLength" value
-
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture) =
+        Interop.svgAttribute "touchAction" horizontalGesture
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(verticalGesture: IVerticalGesture) =
+        Interop.svgAttribute "touchAction" verticalGesture
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, verticalGesture: IVerticalGesture) =
+        Interop.svgAttribute "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> verticalGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.svgAttribute "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> multiFingerGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(verticalGesture: IVerticalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.svgAttribute "touchAction" ((unbox<string> verticalGesture) + " " + (unbox<string> multiFingerGesture))
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    static member inline touchAction(horizontalGesture: IHorizontalGesture, verticalGesture: IVerticalGesture, multiFingerGesture: IMultiFingerGesture) =
+        Interop.svgAttribute "touchAction" ((unbox<string> horizontalGesture) + " " + (unbox<string> verticalGesture) + " " + (unbox<string> multiFingerGesture))
     /// Defines a list of transform definitions that are applied to an element and the element's children.
     static member inline transform (transform: ITransformProperty) =
         Interop.svgAttribute "transform" (unbox<string> transform)
@@ -1072,6 +1089,37 @@ module svg =
         static member inline userSpaceOnUse = Interop.svgAttribute "gradientUnits" "userSpaceOnUse"
         static member inline objectBoundingBox = Interop.svgAttribute "gradientUnits" "objectBoundingBox"
 
+    /// Sets under what circumstances (if any) a particular graphics element can become the target of pointer events.
+    [<Erase>]
+    type pointerEvents =
+        /// Default value. The element behaves as it would if the pointer-events property were not specified.
+        static member inline auto = Interop.svgAttribute "pointerEvents" "auto"
+        /// The element is never the target of pointer events; however, pointer events may target its descendant elements if those descendants have pointer-events set to some other value.
+        static member inline none = Interop.svgAttribute "pointerEvents" "none"
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and e.g. when a mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when a mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none.
+        static member inline visiblePainted = Interop.svgAttribute "pointerEvents" "visiblePainted"
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and when e.g. a mouse cursor is over the interior (i.e., fill) of the element. The value of the fill property does not affect event processing.
+        static member inline visibleFill = Interop.svgAttribute "pointerEvents" "visibleFill"
+        /// The element can only be the target of a pointer event when the visibility property is set to visible and e.g. when the mouse cursor is over the perimeter (i.e., stroke) of the element. The value of the stroke property does not affect event processing.
+        static member inline visibleStroke = Interop.svgAttribute "pointerEvents" "visibleStroke"
+        /// The element can be the target of a pointer event when the visibility property is set to visible and e.g. the mouse cursor is over either the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill and stroke do not affect event processing.
+        static member inline visible = Interop.svgAttribute "pointerEvents" "visible"
+        /// The element can only be the target of a pointer event when e.g. the mouse cursor is over the interior (i.e., 'fill') of the element and the fill property is set to a value other than none, or when the mouse cursor is over the perimeter (i.e., 'stroke') of the element and the stroke property is set to a value other than none. The value of the visibility property does not affect event processing.
+        static member inline painted = Interop.svgAttribute "pointerEvents" "painted"
+        /// The element can only be the target of a pointer event when the pointer is over the interior (i.e., fill) of the element. The values of the fill and visibility properties do not affect event processing.
+        static member inline fill = Interop.svgAttribute "pointerEvents" "fill"
+        /// The element can only be the target of a pointer event when the pointer is over the perimeter (i.e., stroke) of the element. The values of the stroke and visibility properties do not affect event processing.
+        static member inline stroke = Interop.svgAttribute "pointerEvents" "stroke"
+        /// The element can only be the target of a pointer event when the pointer is over the interior (i.e., fill) or the perimeter (i.e., stroke) of the element. The values of the fill, stroke, and visibility properties do not affect event processing.
+        static member inline all = Interop.svgAttribute "pointerEvents" "all"
+        /// Sets this property to its default value
+        static member inline initial = Interop.svgAttribute "pointerEvents" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.svgAttribute "pointerEvents" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent,
+        /// and to its initial value if not.
+        static member inline unset = Interop.svgAttribute "pointerEvents" "unset"
+
     /// The `text-anchor` attribute is used to align (start-, middle- or
     /// end-alignment) a string of pre-formatted text or auto-wrapped text where
     /// the wrapping area is determined from the `inline-size` property relative
@@ -1125,6 +1173,16 @@ module svg =
         static member inline underline = Interop.svgAttribute "textDecoration" "underline"
         static member inline overline = Interop.svgAttribute "textDecoration" "overline"
         static member inline lineThrough = Interop.svgAttribute "textDecoration" "line-through"
+
+    /// Sets how an element's region can be manipulated by a touchscreen user.
+    [<Erase>]
+    type touchAction =
+        /// Default value. Enable browser handling of all panning and zooming gestures.
+        static member inline auto = Interop.svgAttribute "touchAction" "auto"
+        /// Disable browser handling of all panning and zooming gestures.
+        static member inline none = Interop.svgAttribute "touchAction" "none"
+        /// Enable panning and pinch zoom gestures, but disable additional non-standard gestures such as double-tap to zoom. Disabling double-tap to zoom removes the need for browsers to delay the generation of click events when the user taps the screen.
+        static member inline manipulation = Interop.svgAttribute "touchAction" "manipulation"
 
     [<Erase>]
     type transform =

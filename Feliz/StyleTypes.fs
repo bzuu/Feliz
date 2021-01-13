@@ -47,3 +47,9 @@ type ITransformProperty = interface end
 type IGridSpan = interface end
 
 type IGridTemplateItem = interface end
+
+type IHorizontalGesture = interface end
+
+type IVerticalGesture = interface end
+
+type IMultiFingerGesture = interface end
