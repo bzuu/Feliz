@@ -3673,8 +3673,6 @@ module style =
         static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
         /// The width and height properties include the content, padding, and border, but do not include the margin. Note that padding and border will be inside of the box.
         static member inline borderBox = Interop.mkStyle "boxSizing" "border-box"
-        /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "boxSizing" "initial"
     
     /// Sets under what circumstances (if any) a particular graphics element can become the target of pointer events.
     [<Erase>]
